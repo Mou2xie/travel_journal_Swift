@@ -9,13 +9,15 @@ import SwiftUI
 
 struct AddTripView: View {
     
+    // get tripInfo from HomeView
     @Binding var tripInfo: Trip?
     
     @Environment(\.dismiss) var dissmiss
 
+    // Images from assets
     private let imagesList = ["none", "china", "tokyo", "moscow"]
 
-    // Local state variables for form data
+    // Local state variables
     @State private var title: String = ""
     @State private var location: String = ""
     @State private var startDate: Date = Date()
@@ -23,14 +25,14 @@ struct AddTripView: View {
     @State private var notes: String = ""
     @State private var selectedImage: String = "none"
 
-    //to check if TextEditor is focused to display placeholder in note
+    // to check if TextEditor is focused to display placeholder in note
     @FocusState private var isFocused: Bool
     //to decide whether to show error message
     @State private var isTitleError: Bool = false
     @State private var isLocationError: Bool = false
     @State private var isDateError: Bool = false
 
-    //decide if save btn should be disabled
+    // if save btn should be disabled
     private var saveBtnDisabled: Bool {
         if title.isEmpty || title.count < 2 || location.isEmpty
             || location.count < 2 || startDate > endDate || notes.count > 120
