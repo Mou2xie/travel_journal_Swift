@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AddTripView: View {
 
     //page states
     @State private var title: String = ""
@@ -268,5 +268,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AddTripView()
 }
