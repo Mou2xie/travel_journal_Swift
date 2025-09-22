@@ -8,11 +8,94 @@
 import SwiftUI
 
 struct TripDetailView: View {
+
+    let tripInfo: Trip?
+
+    var tripDuration: Int? {
+
+        if let tripInfo = tripInfo {
+            let calendar = Calendar.current
+            let startOfStart = calendar.startOfDay(for: tripInfo.startDate)
+            let startOfEnd = calendar.startOfDay(for: tripInfo.endDate)
+            let components = calendar.dateComponents(
+                [.day],
+                from: startOfStart,
+                to: startOfEnd
+            )
+            return components.day ?? 0
+        } else {
+            return nil
+        }
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+        if let tripInfo = tripInfo {
+            if let assetImageName = tripInfo.assetImageName as? String {
+                Image(assetImageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: .infinity, height: 300)
+                    .clipped()
+            }
+
+            VStack {
+                Text(tripInfo.title)
+                    .font(.title)
+                    .fontWeight(.bold)
+                HStack {
+                    Image(systemName: "location.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundStyle(.tint)
+                    Text(tripInfo.location)
+                }
+                HStack {
+                    Text(
+                        tripInfo.startDate,
+                        format: .dateTime.year().month().day()
+                    )
+                    Text("-")
+                    Text(
+                        tripInfo.endDate,
+                        format: .dateTime.year().month().day()
+                    )
+                }
+                .foregroundStyle(.secondary)
+                .padding(.vertical,5)
+                
+                if let duration = tripDuration {
+                    Text("Lasted for \(duration) Days")
+                        .foregroundStyle(.secondary)
+                }
+                
+                Text(tripInfo.notes)
+                    .frame(maxWidth:.infinity,alignment: .topLeading)
+                    .lineLimit(2)
+                    .padding()
+
+                Spacer()
+
+            }
+
+        } else {
+            Text("No trip here")
+                .font(.title2)
+                .padding(20)
+            NavigationLink("Add new trip") {
+                AddTripView(tripInfo: .constant(nil))
+            }
+        }
     }
 }
 
 #Preview {
-    TripDetailView()
+    TripDetailView(
+        tripInfo: Trip(
+            title: "Go to China",
+            location: "China",
+            startDate: Date(),
+            endDate: Date(),
+            notes: "this is note"
+        )
+    )
 }

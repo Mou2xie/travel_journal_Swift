@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @State private var trip: Trip?
+    
     var body: some View {
         NavigationStack {
             
@@ -26,7 +29,7 @@ struct HomeView: View {
                 .padding(.bottom,80)
                 .padding(.top,20)
             
-            NavigationLink(destination: AddTripView()) {
+            NavigationLink(destination: AddTripView(tripInfo: $trip)) {
                 Text("Add New Trip")
                     .frame(width: 230, height: 30)
                     .font(.headline)
@@ -36,7 +39,7 @@ struct HomeView: View {
                     .clipShape(Capsule())
             }
             
-            NavigationLink(destination: TripDetailView()) {
+            NavigationLink(destination: TripDetailView(tripInfo: trip)) {
                 Text("View Trip")
                     .frame(width: 230, height: 30)
                     .font(.headline)
