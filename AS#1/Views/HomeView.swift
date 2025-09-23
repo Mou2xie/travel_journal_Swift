@@ -14,6 +14,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             
+            // APP Icon
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .frame(width: 100,height: 100)
@@ -28,7 +29,7 @@ struct HomeView: View {
                 .font(.title2)
                 .padding(.bottom,80)
                 .padding(.top,20)
-            
+        
             NavigationLink(destination: AddTripView(tripInfo: $trip)) {
                 Text("Add New Trip")
                     .frame(width: 230, height: 30)
@@ -39,7 +40,7 @@ struct HomeView: View {
                     .clipShape(Capsule())
             }
             
-            NavigationLink(destination: TripDetailView(tripInfo: trip)) {
+            NavigationLink(destination: TripDetailView(tripInfo: $trip)) {
                 Text("View Trip")
                     .frame(width: 230, height: 30)
                     .font(.headline)

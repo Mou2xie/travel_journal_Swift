@@ -9,8 +9,10 @@ import SwiftUI
 
 struct TripDetailView: View {
 
-    let tripInfo: Trip?
+    // get tripInfo from outside
+    @Binding var tripInfo: Trip?
 
+    // computed property
     var tripDuration: Int? {
 
         if let tripInfo = tripInfo {
@@ -31,7 +33,7 @@ struct TripDetailView: View {
     var body: some View {
 
         if let tripInfo = tripInfo {
-            if let assetImageName = tripInfo.assetImageName as? String {
+            if let assetImageName = tripInfo.assetImageName {
                 Image(assetImageName)
                     .resizable()
                     .scaledToFill()
@@ -82,20 +84,12 @@ struct TripDetailView: View {
                 .font(.title2)
                 .padding(20)
             NavigationLink("Add new trip") {
-                AddTripView(tripInfo: .constant(nil))
+                AddTripView(tripInfo: $tripInfo)
             }
         }
     }
 }
 
 #Preview {
-    TripDetailView(
-        tripInfo: Trip(
-            title: "Go to China",
-            location: "China",
-            startDate: Date(),
-            endDate: Date(),
-            notes: "this is note"
-        )
-    )
+    TripDetailView(tripInfo: .constant(Trip(title: "Trip tp Japan", location: "Tokyo", startDate: Date(), endDate: Date(), notes: "", assetImageName: "tokyo")))
 }
