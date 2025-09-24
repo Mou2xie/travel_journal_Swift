@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    
+
     @State private var trip: Trip?
     
     var body: some View {
