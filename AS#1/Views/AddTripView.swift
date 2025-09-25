@@ -232,8 +232,8 @@ struct AddTripView: View {
                     .foregroundStyle(.white)
                     .font(.headline)
                     .clipShape(Capsule())
-                    .disabled(saveBtnDisabled)
             }
+            .disabled(saveBtnDisabled)
             
 
             Button {
